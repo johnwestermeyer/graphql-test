@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec npx babel-node src/index.js",
+    "prettier": "prettier --config ./.prettierrc --write \"**/*.js\"",
+    "pretest": "eslint --ignore-path .gitignore .",
+    "postinstall": "rm -rf dist && yarn run build",
+    "lint": "yarn prettier --write --check --config ./.prettierrc \"**/*.js\" && eslint --fix ./src",
+    "release": "release-it patch --no-npm.publish"
   },
   "repository": {
     "type": "git",
@@ -18,12 +25,37 @@
   },
   "homepage": "https://github.com/johnwestermeyer/graphql-test#readme",
   "dependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.0",
+    "apollo-engine": "^1.1.2",
+    "apollo-server-express": "^2.24.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
     "graphql-compose": "^8.0.1",
+    "graphql-compose-connection": "^8.1.0",
     "graphql-compose-mongoose": "^9.3.0",
-    "mongoose": "^5.12.7"
+    "graphql-middleware": "^6.0.10",
+    "graphql-tools": "^7.0.4",
+    "mongoose": "^5.12.7",
+    "mongoose-bcrypt": "^1.9.0",
+    "mongoose-timestamp": "^0.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "fs-extra": "^9.1.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
 }
